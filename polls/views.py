@@ -8,6 +8,12 @@ from .models import Choice, Question
 
 
 class IndexView(generic.ListView):
+    """
+    View to display a list of the latest five published questions.
+    Only questions with a publication date that is not in the future
+    are included in the list. The questions are ordered by publication
+    date in descending order.
+    """
     template_name = "polls/index.html"
     context_object_name = "latest_question_list"
 
@@ -20,6 +26,11 @@ class IndexView(generic.ListView):
 
 
 class DetailView(generic.DetailView):
+    """
+    View to display the details of a specific question.
+    The view excludes any questions that are not yet published (i.e., those with a
+    publication date in the future).
+    """
     model = Question
     template_name = "polls/detail.html"
 
@@ -31,11 +42,21 @@ class DetailView(generic.DetailView):
 
 
 class ResultsView(generic.DetailView):
+    """
+    View to display the results of a specific question, including the
+    number of votes each choice has received.
+    """
     model = Question
     template_name = "polls/results.html"
 
 
 def vote(request, question_id):
+    """
+    Handles the voting process for a specific question.
+    Retrieves the selected choice for the given question, increments
+    the vote count, and redirects to the results page. If no choice is selected,
+    redisplays the voting form with an error message.
+    """
     question = get_object_or_404(Question, pk=question_id)
     try:
         selected_choice = question.choice_set.get(pk=request.POST["choice"])
