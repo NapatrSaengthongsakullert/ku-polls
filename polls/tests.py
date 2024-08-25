@@ -6,6 +6,11 @@ from django.urls import reverse
 
 
 class QuestionModelTests(TestCase):
+    """
+    Test cases for the Question model, particularly the was_published_recently()
+    method, which determines if a question was published within the last day.
+    """
+
     def test_was_published_recently_with_future_question(self):
         """
         was_published_recently() returns False for questions whose pub_date
@@ -54,7 +59,7 @@ class QuestionModelTests(TestCase):
 
 def create_question(question_text, days):
     """
-    Create a question with the given `question_text` and published the
+    Create a question with the given `question_text` and publish it the
     given number of `days` offset to now (negative for questions published
     in the past, positive for questions that have yet to be published).
     """
@@ -63,6 +68,11 @@ def create_question(question_text, days):
 
 
 class QuestionIndexViewTests(TestCase):
+    """
+    Test cases for the index view of the polls app, which displays a list
+    of the latest questions.
+    """
+
     def test_no_questions(self):
         """
         If no questions exist, an appropriate message is displayed.
@@ -121,6 +131,11 @@ class QuestionIndexViewTests(TestCase):
 
 
 class QuestionDetailViewTests(TestCase):
+    """
+    Test cases for the detail view of the polls app, which displays the
+    details of a specific question.
+    """
+
     def test_future_question(self):
         """
         The detail view of a question with a pub_date in the future
