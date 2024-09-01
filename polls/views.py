@@ -1,9 +1,10 @@
 from django.db.models import F
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
+from django.contrib import messages
 from .models import Choice, Question
 
 
@@ -40,6 +41,18 @@ class DetailView(generic.DetailView):
         """
         return Question.objects.filter(pub_date__lte=timezone.now())
 
+    def get(self, request, *args, **kwargs):
+        """To back to index page if not found"""
+        try:
+            question = get_object_or_404(Question, pk=kwargs['pk'])
+        except Http404:
+            messages.error(
+                request, "Question is not available")
+        if not question.can_vote():
+            messages.error(request, "Question is not available")
+            return HttpResponseRedirect(reverse('polls:index'))
+        return super().get(request, *args, **kwargs)
+
 
 class ResultsView(generic.DetailView):
     """
@@ -53,15 +66,11 @@ class ResultsView(generic.DetailView):
 def vote(request, question_id):
     """
     Handles the voting process for a specific question.
-    Retrieves the selected choice for the given question, increments
-    the vote count, and redirects to the results page. If no choice is selected,
-    redisplays the voting form with an error message.
     """
     question = get_object_or_404(Question, pk=question_id)
     try:
         selected_choice = question.choice_set.get(pk=request.POST["choice"])
     except (KeyError, Choice.DoesNotExist):
-        # Redisplay the question voting form.
         return render(
             request,
             "polls/detail.html",
@@ -73,7 +82,4 @@ def vote(request, question_id):
     else:
         selected_choice.votes = F("votes") + 1
         selected_choice.save()
-        # Always return an HttpResponseRedirect after successfully dealing
-        # with POST data. This prevents data from being posted twice if a
-        # user hits the Back button.
         return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))
