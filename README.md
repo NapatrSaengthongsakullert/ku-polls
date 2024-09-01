@@ -21,6 +21,14 @@ https://cpske.github.io/ISP) course at [Kasetsart University](https://www.ku.ac.
 
 `python -m venv venv`
 
+4. Install all required packages. pip install -r requirements.txt Create .env file in ku-polls
+
+`
+SECRET_KEY = 'django-insecure-rnug$7zncble0(+xdf%c-%%*y*dm=616&c)epl+m!*#a8p9@!0'
+DEBUG = True
+TIME_ZONE = UTC
+`
+
 4. Run this command to migrate the database.
 
 `python manage.py migrate`
