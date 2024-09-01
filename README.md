@@ -29,11 +29,11 @@ DEBUG = True
 TIME_ZONE = UTC
 `
 
-4. Run this command to migrate the database.
+5. Run this command to migrate the database.
 
 `python manage.py migrate`
 
-5. Start running the server by this command.
+6. Start running the server by this command.
 
 `python manage.py runserver`
 
