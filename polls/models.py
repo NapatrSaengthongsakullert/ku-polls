@@ -32,7 +32,7 @@ class Question(models.Model):
 
     def can_vote(self):
         """Returns True if voting is allowed for this question."""
-        if self.end_date is True:
+        if self.end_date:
             return self.is_published and timezone.now() <= self.end_date
         return self.is_published()
 
