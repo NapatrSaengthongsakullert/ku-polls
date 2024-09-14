@@ -8,9 +8,7 @@ from django.contrib import messages
 from .models import Choice, Question, Vote
 from django.contrib.auth.decorators import login_required
 
-
 logger = logging.getLogger('polls')
-
 
 class IndexView(generic.ListView):
     """

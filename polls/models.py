@@ -7,7 +7,6 @@ class Question(models.Model):
     """
     Represents a poll question.
     """
-
     question_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField("date published")
     end_date = models.DateTimeField('end date', null=True)
@@ -41,7 +40,6 @@ class Choice(models.Model):
     """
     Represents a choice in a poll, related to a specific question.
     """
-
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choice_text = models.CharField(max_length=200)
     votes = models.IntegerField(default=0)
@@ -57,7 +55,9 @@ class Choice(models.Model):
         """Return votes amount of that choice."""
         return Vote.objects.filter(choice=self).count()
 
-class Vote(models.Model, ):
+
+class Vote(models.Model):
+    """This model is used to collected votes for a choice with username."""
     user = models.ForeignKey(
         User, blank=False, null=False, on_delete=models.CASCADE)
     choice = models.ForeignKey(
@@ -65,4 +65,5 @@ class Vote(models.Model, ):
 
     @property
     def question(self):
+        """Question of the choice."""
         return self.choice.question
