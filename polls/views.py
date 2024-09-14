@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 
 logger = logging.getLogger('polls')
 
+
 class IndexView(generic.ListView):
     """
     View to display a list of the latest five published questions.
@@ -104,6 +105,7 @@ def vote(request, question_id):
                 f"User {request.user.username} voted on question {question.id} with choice {selected_choice.id}")
         return HttpResponseRedirect(
             reverse('polls:results', args=(question.id,)))
+
 
 def reverse_to_poll(self):
     """redirect to homepage"""
