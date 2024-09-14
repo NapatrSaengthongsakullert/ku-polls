@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Polls{% endblock %}</title>
+    <a href="{% url 'polls:index' %}" class="polls-button">Polls</a>
+</head>
+<body>
+    <header>
+        {% if user.is_authenticated %}
+            <p>Welcome, {{ user.username }}!
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" >Logout</button>
+            </form></p>
+        {% else %}
+            <form action="{% url 'login' %}" method="get" >
+                <input type="hidden" name="next" value="{{ request.path }}">
+                <button type="submit">Login</button>
+            </form>
+        {% endif %}
+
+    </header>
+
+    <div class="content">
+        {% block content %}
+
+        {% endblock %}
+    </div>
+</body>
+</html>

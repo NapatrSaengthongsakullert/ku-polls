@@ -16,10 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from django.shortcuts import redirect
+from django.contrib.auth.views import LoginView, LogoutView
+from polls.views import reverse_to_poll
+
 
 urlpatterns = [
     path('polls/', include('polls.urls')),
     path('admin/', admin.site.urls),
-    path('', lambda request: redirect('polls:index')),
+    path('', reverse_to_poll),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('login/', LoginView.as_view(template_name='registration/login.html'), name='login'),
+    path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
 ]
