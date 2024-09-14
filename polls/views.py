@@ -1,5 +1,5 @@
-from django.db.models import F
-from django.http import Http404, HttpResponseRedirect
+import logging
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.views import generic
@@ -7,6 +7,10 @@ from django.utils import timezone
 from django.contrib import messages
 from .models import Choice, Question, Vote
 from django.contrib.auth.decorators import login_required
+
+
+logger = logging.getLogger('polls')
+
 
 class IndexView(generic.ListView):
     """
@@ -98,6 +102,8 @@ def vote(request, question_id):
                 choice=selected_choice)
             new_vote.save()
             messages.success(request, f'Your vote for "{selected_choice.choice_text}" has been recorded.')
+            logger.info(
+                f"User {request.user.username} voted on question {question.id} with choice {selected_choice.id}")
         return HttpResponseRedirect(
             reverse('polls:results', args=(question.id,)))
 
