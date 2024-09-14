@@ -10,7 +10,7 @@ https://cpske.github.io/ISP) course at [Kasetsart University](https://www.ku.ac.
 
 ## Installation and Running the Application
 
-[Installation Guide](installation.md)
+[Installation Guide](Installation.md)
 
 ## Project Documents
 
