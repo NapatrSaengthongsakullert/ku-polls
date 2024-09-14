@@ -91,6 +91,7 @@ class QuestionModelTests(TestCase):
         question = Question(pub_date=timezone.now() - datetime.timedelta(days=2), end_date=None)
         self.assertTrue(question.can_vote())
 
+
 def create_question(question_text, days):
     """
     Create a question with the given `question_text` and publish it the
@@ -99,6 +100,7 @@ def create_question(question_text, days):
     """
     time = timezone.now() + datetime.timedelta(days=days)
     return Question.objects.create(question_text=question_text, pub_date=time)
+
 
 class QuestionIndexViewTests(TestCase):
     """
@@ -174,8 +176,8 @@ class QuestionDetailViewTests(TestCase):
         The detail view of a question with a pub_date in the future
         returns a 404 not found.
         """
-        future_question = create_question(question_text="Future question.", days=5)
-        url = reverse("polls:detail", args=(future_question.id,))
+        future_question = create_question(question_text='Future question', days=5)
+        url = reverse('polls:detail', args=(future_question.id,))
         response = self.client.get(url)
         self.assertEqual(response.status_code, 404)
 
