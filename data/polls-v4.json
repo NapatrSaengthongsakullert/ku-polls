@@ -1,0 +1,492 @@
+[
+{
+  "model": "polls.question",
+  "pk": 6,
+  "fields": {
+    "question_text": "What's the best programming language to learn first?",
+    "pub_date": "2024-09-01T16:04:43Z",
+    "end_date": "2024-09-30T12:00:00Z"
+  }
+},
+{
+  "model": "polls.question",
+  "pk": 7,
+  "fields": {
+    "question_text": "What's the most used programming language in the world?",
+    "pub_date": "2024-09-01T16:05:22Z",
+    "end_date": "2024-09-30T12:00:00Z"
+  }
+},
+{
+  "model": "polls.question",
+  "pk": 8,
+  "fields": {
+    "question_text": "What is your preferred method of studying for exams?",
+    "pub_date": "2024-09-14T11:16:06Z",
+    "end_date": "2024-10-10T11:16:12Z"
+  }
+},
+{
+  "model": "polls.question",
+  "pk": 9,
+  "fields": {
+    "question_text": "How do you balance academic responsibilities with social life?",
+    "pub_date": "2024-09-14T11:16:36Z",
+    "end_date": "2024-10-14T11:16:41Z"
+  }
+},
+{
+  "model": "polls.question",
+  "pk": 10,
+  "fields": {
+    "question_text": "What motivates you to attend your university classes?",
+    "pub_date": "2024-09-14T11:16:48Z",
+    "end_date": "2024-10-14T11:16:52Z"
+  }
+},
+{
+  "model": "polls.question",
+  "pk": 11,
+  "fields": {
+    "question_text": "How do you prefer to spend your free time on campus?",
+    "pub_date": "2024-09-14T11:16:57Z",
+    "end_date": "2024-10-14T11:17:00Z"
+  }
+},
+{
+  "model": "polls.question",
+  "pk": 12,
+  "fields": {
+    "question_text": "Which campus service do you use the most?",
+    "pub_date": "2024-09-14T11:17:05Z",
+    "end_date": "2024-10-14T11:17:08Z"
+  }
+},
+{
+  "model": "polls.question",
+  "pk": 13,
+  "fields": {
+    "question_text": "What’s the biggest challenge you face as a university student?",
+    "pub_date": "2024-09-14T11:17:13Z",
+    "end_date": "2024-10-14T11:17:16Z"
+  }
+},
+{
+  "model": "polls.question",
+  "pk": 14,
+  "fields": {
+    "question_text": "How do you usually commute to university?",
+    "pub_date": "2024-09-14T11:17:43Z",
+    "end_date": "2024-10-14T11:17:46Z"
+  }
+},
+{
+  "model": "polls.question",
+  "pk": 15,
+  "fields": {
+    "question_text": "Which aspect of university life do you enjoy the most?",
+    "pub_date": "2024-09-14T11:17:51Z",
+    "end_date": "2024-10-14T11:17:54Z"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 10,
+  "fields": {
+    "question": 6,
+    "choice_text": "Python"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 11,
+  "fields": {
+    "question": 6,
+    "choice_text": "C++"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 12,
+  "fields": {
+    "question": 6,
+    "choice_text": "Java"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 13,
+  "fields": {
+    "question": 6,
+    "choice_text": "C#"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 14,
+  "fields": {
+    "question": 6,
+    "choice_text": "C"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 15,
+  "fields": {
+    "question": 7,
+    "choice_text": "Python"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 16,
+  "fields": {
+    "question": 7,
+    "choice_text": "C++"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 17,
+  "fields": {
+    "question": 7,
+    "choice_text": "Java"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 18,
+  "fields": {
+    "question": 7,
+    "choice_text": "C#"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 19,
+  "fields": {
+    "question": 7,
+    "choice_text": "C"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 20,
+  "fields": {
+    "question": 8,
+    "choice_text": "Studying alone"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 21,
+  "fields": {
+    "question": 8,
+    "choice_text": "Group study with friends"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 22,
+  "fields": {
+    "question": 8,
+    "choice_text": "Attending review sessions"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 23,
+  "fields": {
+    "question": 8,
+    "choice_text": "Watching online tutorials"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 24,
+  "fields": {
+    "question": 8,
+    "choice_text": "Last-minute cramming"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 25,
+  "fields": {
+    "question": 9,
+    "choice_text": "I focus mostly on academics"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 26,
+  "fields": {
+    "question": 9,
+    "choice_text": "I prioritize social life"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 27,
+  "fields": {
+    "question": 9,
+    "choice_text": "I manage both equally"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 28,
+  "fields": {
+    "question": 9,
+    "choice_text": "I struggle to balance both"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 29,
+  "fields": {
+    "question": 9,
+    "choice_text": "I rely on a strict schedule"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 30,
+  "fields": {
+    "question": 10,
+    "choice_text": "Passion for the subject"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 31,
+  "fields": {
+    "question": 10,
+    "choice_text": "Fear of falling behind"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 32,
+  "fields": {
+    "question": 10,
+    "choice_text": "Socializing with classmates"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 33,
+  "fields": {
+    "question": 10,
+    "choice_text": "Parental expectations"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 34,
+  "fields": {
+    "question": 10,
+    "choice_text": "Desire to achieve good grades"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 35,
+  "fields": {
+    "question": 11,
+    "choice_text": "Hanging out with friends"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 36,
+  "fields": {
+    "question": 11,
+    "choice_text": "Participating in club activities"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 37,
+  "fields": {
+    "question": 11,
+    "choice_text": "Studying or catching up on work"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 38,
+  "fields": {
+    "question": 11,
+    "choice_text": "Exercising or playing sports"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 39,
+  "fields": {
+    "question": 11,
+    "choice_text": "Exploring new hobbies"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 40,
+  "fields": {
+    "question": 12,
+    "choice_text": "Library"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 41,
+  "fields": {
+    "question": 12,
+    "choice_text": "Cafeteria"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 42,
+  "fields": {
+    "question": 12,
+    "choice_text": "Gym"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 43,
+  "fields": {
+    "question": 12,
+    "choice_text": "Counseling center"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 44,
+  "fields": {
+    "question": 12,
+    "choice_text": "Computer lab"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 45,
+  "fields": {
+    "question": 13,
+    "choice_text": "Time management"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 46,
+  "fields": {
+    "question": 13,
+    "choice_text": "Financial stress"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 47,
+  "fields": {
+    "question": 13,
+    "choice_text": "Academic pressure"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 48,
+  "fields": {
+    "question": 13,
+    "choice_text": "Mental health and stress"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 49,
+  "fields": {
+    "question": 13,
+    "choice_text": "Balancing work and study"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 50,
+  "fields": {
+    "question": 14,
+    "choice_text": "By car"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 51,
+  "fields": {
+    "question": 14,
+    "choice_text": "By public transport"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 52,
+  "fields": {
+    "question": 14,
+    "choice_text": "By bike"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 53,
+  "fields": {
+    "question": 14,
+    "choice_text": "Walking"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 54,
+  "fields": {
+    "question": 14,
+    "choice_text": "I live on campus"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 55,
+  "fields": {
+    "question": 15,
+    "choice_text": "Learning new things"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 56,
+  "fields": {
+    "question": 15,
+    "choice_text": "Meeting new people"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 57,
+  "fields": {
+    "question": 15,
+    "choice_text": "Joining clubs and activities"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 58,
+  "fields": {
+    "question": 15,
+    "choice_text": "Campus events and festivals"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 59,
+  "fields": {
+    "question": 15,
+    "choice_text": "Freedom and independence"
+  }
+}
+]
