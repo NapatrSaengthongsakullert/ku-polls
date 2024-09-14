@@ -2,7 +2,7 @@
 
 1. Clone this project repository to your machine.
 
-  `git clone https://github.com/premepreme/ku-polls.git`
+  `git clone https://github.com/NapatrSaengthongsakullert/ku-polls.git`
 
 2. Get into the directory of this repository.
 
