@@ -1,12 +1,12 @@
 from django.db.models import F
 from django.http import Http404, HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 from django.contrib import messages
-from .models import Choice, Question
-
+from .models import Choice, Question, Vote
+from django.contrib.auth.decorators import login_required
 
 class IndexView(generic.ListView):
     """
@@ -41,17 +41,26 @@ class DetailView(generic.DetailView):
         """
         return Question.objects.filter(pub_date__lte=timezone.now())
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request, pk):
         """To back to index page if not found"""
+        self.question = get_object_or_404(Question, pk=pk)
         try:
-            question = get_object_or_404(Question, pk=kwargs['pk'])
-        except Http404:
-            messages.error(
-                request, "Question is not available")
-        if not question.can_vote():
-            messages.error(request, "Question is not available")
-            return HttpResponseRedirect(reverse('polls:index'))
-        return super().get(request, *args, **kwargs)
+            vote = Vote.objects.get(user=request.user,
+                                    choice__in=self.question.choice_set.all())
+
+            previous_one = vote.choice.choice_text
+        except (Vote.DoesNotExist, TypeError):
+            previous_one = ""
+
+        if self.question.can_vote():
+            return render(request, self.template_name,
+                          {"question": self.question,
+                           "previous_vote": previous_one})
+        else:
+            messages.error(request,
+                           f"Poll number {self.question.id} "
+                           f"is not available to vote")
+            return redirect("polls:index")
 
 
 class ResultsView(generic.DetailView):
@@ -63,18 +72,35 @@ class ResultsView(generic.DetailView):
     template_name = "polls/results.html"
 
 
+@login_required
 def vote(request, question_id):
-    """
-    Handles the voting process for a specific question.
-    """
+    """process of voting"""
     question = get_object_or_404(Question, pk=question_id)
     try:
-        selected_choice = question.choice_set.get(pk=request.POST["choice"])
+        selected_choice = question.choice_set.get(
+            pk=request.POST['choice'])
     except (KeyError, Choice.DoesNotExist):
-        return render(request,"polls/detail.html",{"question": question,
-            "error_message": "You didn't select a choice.",
+        return render(request, 'polls/detail.html', {
+            'question': question,
+            'error_message': "You didn't select a choice.",
         })
     else:
-        selected_choice.votes = F("votes") + 1
-        selected_choice.save()
-        return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))
+        try:
+            vote = Vote.objects.get(
+                user=request.user,
+                choice__question=question)
+            if vote:
+                vote.choice = selected_choice
+                vote.save()
+        except Vote.DoesNotExist:
+            new_vote = Vote.objects.create(
+                user=request.user,
+                choice=selected_choice)
+            new_vote.save()
+            messages.success(request, f'Your vote for "{selected_choice.choice_text}" has been recorded.')
+        return HttpResponseRedirect(
+            reverse('polls:results', args=(question.id,)))
+
+def reverse_to_poll(self):
+    """redirect to homepage"""
+    return HttpResponseRedirect(reverse('polls:index'))
