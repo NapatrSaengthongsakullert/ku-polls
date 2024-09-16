@@ -45,7 +45,12 @@ class DetailView(generic.DetailView):
         return Question.objects.filter(pub_date__lte=timezone.now())
 
     def get(self, request, pk):
-        """To back to index page if not found"""
+        """To back to index page if questionID is not found"""
+        try:
+            self.question = Question.objects.get(pk=pk)
+        except Question.DoesNotExist:
+            return redirect("polls:index")
+
         self.question = get_object_or_404(Question, pk=pk)
         try:
             vote = Vote.objects.get(user=request.user,
@@ -74,37 +79,39 @@ class ResultsView(generic.DetailView):
     model = Question
     template_name = "polls/results.html"
 
+    def get(self, request, *args, **kwargs):
+        try:
+            self.object = self.get_object()
+            return super().get(request, *args, **kwargs)
+        except Question.DoesNotExist:
+            return redirect(reverse('polls:index'))
+
 
 @login_required
 def vote(request, question_id):
-    """process of voting"""
+    """Process of voting"""
     question = get_object_or_404(Question, pk=question_id)
     try:
-        selected_choice = question.choice_set.get(
-            pk=request.POST['choice'])
+        selected_choice = question.choice_set.get(pk=request.POST['choice'])
     except (KeyError, Choice.DoesNotExist):
-        return render(request, 'polls/detail.html', {
-            'question': question,
-            'error_message': "You didn't select a choice.",
-        })
+        messages.error(request, "You didn't select a choice.")
+        return redirect(reverse('polls:detail', args=(question.id,)))
     else:
         try:
-            vote = Vote.objects.get(
-                user=request.user,
-                choice__question=question)
-            if vote:
-                vote.choice = selected_choice
-                vote.save()
+            vote = Vote.objects.get(user=request.user, choice__question=question)
+            previous_choice = vote.choice  # Save previous choice for comparison
+            vote.choice = selected_choice
+            vote.save()
+            if previous_choice != selected_choice:
+                messages.success(request, f'You changed your answer to "{selected_choice.choice_text}".')
+            else:
+                messages.success(request, f'Your vote for "{selected_choice.choice_text}" has been recorded.')
         except Vote.DoesNotExist:
-            new_vote = Vote.objects.create(
-                user=request.user,
-                choice=selected_choice)
-            new_vote.save()
+            Vote.objects.create(user=request.user, choice=selected_choice)
+            logger.info(f"User {request.user.username} voted on question {question.id} with choice {selected_choice.id}")
             messages.success(request, f'Your vote for "{selected_choice.choice_text}" has been recorded.')
-            logger.info(
-                f"User {request.user.username} voted on question {question.id} with choice {selected_choice.id}")
-        return HttpResponseRedirect(
-            reverse('polls:results', args=(question.id,)))
+
+        return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
 
 
 def reverse_to_poll(self):

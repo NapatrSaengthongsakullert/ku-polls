@@ -3,17 +3,38 @@
 {% block content %}
 {% if messages %}
     <ul class="messages">
-        {% for message in messages %}
-            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% for msg in messages %}
+            <a>{{msg}}</a>
         {% endfor %}
     </ul>
 {% endif %}
+<head>
+    <style>
+         table,
+         th,
+         td {
+             padding-right: 100px;
+             text-align: left;
+         }
+    </style>
+</head>
 <h1>{{ question.question_text }}</h1>
 
 <ul>
-{% for choice in question.choice_set.all %}
-    <li>{{ choice.choice_text }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
-{% endfor %}
+    <table>
+        <tr>
+            <th>Choice</th>
+            <th>Vote(s)</th>
+        </tr>
+        {% for choice in question.choice_set.all %}
+            <tr>
+                <td>{{choice.choice_text}}</td>
+                <td>{{choice.votes}}</td>
+            </tr>
+        {% endfor %}
+    </table>
 </ul>
-<a href="{% url 'polls:detail' question.id %}">Vote again?</a>
+<form action="{% url 'polls:index' %}" method="get">
+    <button type="submit">Home page</button>
+</form>
 {% endblock %}
