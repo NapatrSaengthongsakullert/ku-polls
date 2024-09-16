@@ -1,5 +1,5 @@
 ## KU Polls: Online Survey Questions 
-[![Python application](https://github.com/NapatrSaengthongsakullert/ku-polls/actions/workflows/python-package.yml/badge.svg)](https://github.com/NapatrSaengthongsakullert/ku-polls/actions/workflows/python-package.yml)
+[![Check Flake8](https://github.com/NapatrSaengthongsakullert/ku-polls/actions/workflows/check-flake8.yml/badge.svg)](https://github.com/NapatrSaengthongsakullert/ku-polls/actions/workflows/check-flake8.yml)
 
 An application to conduct online polls and surveys based
 on the [Django Tutorial project](https://docs.djangoproject.com/en/4.1/intro/tutorial01/), with
