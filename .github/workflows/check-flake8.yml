@@ -29,15 +29,15 @@ jobs:
         pip install flake8
         pip install flake8-docstrings
         pip install -r requirements.txt
-    - name: Run flake8 on mysite/views.py
+    - name: Run flake8 on views.py
       run: |
-        flake8 mysite/views.py --count --max-complexity=10 --max-line-length=127 --statistics
-    - name: Run flake8 on polls/admins.py
+        flake8 polls/views.py --count --max-complexity=10 --max-line-length=127 --statistics
+    - name: Run flake8 on admins.py
       run: |
         flake8 polls/admin.py --count --max-complexity=10 --max-line-length=127 --statistics
-    - name: Run flake8 on polls/models.py
+    - name: Run flake8 on models.py
       run: |
         flake8 polls/models.py --count --max-complexity=10 --max-line-length=127 --statistics
-    - name: Run flake8 on polls/views.py
+    - name: Run flake8 on views.py
       run: |
         flake8 polls/views.py --count --max-complexity=10 --max-line-length=127 --statistics
