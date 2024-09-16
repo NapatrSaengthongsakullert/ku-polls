@@ -1,3 +1,4 @@
+"""IMPORT"""
 import logging
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
@@ -19,6 +20,7 @@ class IndexView(generic.ListView):
     are included in the list. The questions are ordered by publication
     date in descending order.
     """
+
     template_name = "polls/index.html"
     context_object_name = "latest_question_list"
 
@@ -37,6 +39,7 @@ class DetailView(generic.DetailView):
     The view excludes any questions that are not yet published (i.e., those with a
     publication date in the future).
     """
+
     model = Question
     template_name = "polls/detail.html"
 
@@ -77,6 +80,7 @@ class ResultsView(generic.DetailView):
     View to display the results of a specific question, including the
     number of votes each choice has received.
     """
+
     model = Question
     template_name = "polls/results.html"
 
