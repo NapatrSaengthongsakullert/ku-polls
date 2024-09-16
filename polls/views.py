@@ -14,6 +14,7 @@ logger = logging.getLogger('polls')
 class IndexView(generic.ListView):
     """
     View to display a list of the latest five published questions.
+
     Only questions with a publication date that is not in the future
     are included in the list. The questions are ordered by publication
     date in descending order.
@@ -32,6 +33,7 @@ class IndexView(generic.ListView):
 class DetailView(generic.DetailView):
     """
     View to display the details of a specific question.
+
     The view excludes any questions that are not yet published (i.e., those with a
     publication date in the future).
     """
@@ -45,7 +47,9 @@ class DetailView(generic.DetailView):
         return Question.objects.filter(pub_date__lte=timezone.now())
 
     def get(self, request, pk):
-        """To back to index page if questionID is not found"""
+        """
+        Redirect to index page if questionID is not found.
+        """
         try:
             self.question = Question.objects.get(pk=pk)
         except Question.DoesNotExist:
@@ -53,21 +57,18 @@ class DetailView(generic.DetailView):
 
         self.question = get_object_or_404(Question, pk=pk)
         try:
-            vote = Vote.objects.get(user=request.user,
-                                    choice__in=self.question.choice_set.all())
-
-            previous_one = vote.choice.choice_text
+            vote = Vote.objects.get(user=request.user, choice__in=self.question.choice_set.all())
+            previous_choice = vote.choice.choice_text
         except (Vote.DoesNotExist, TypeError):
-            previous_one = ""
+            previous_choice = ""
 
         if self.question.can_vote():
-            return render(request, self.template_name,
-                          {"question": self.question,
-                           "previous_vote": previous_one})
+            return render(request, self.template_name, {
+                "question": self.question,
+                "previous_vote": previous_choice
+            })
         else:
-            messages.error(request,
-                           f"Poll number {self.question.id} "
-                           f"is not available to vote")
+            messages.error(request, f"Poll number {self.question.id} is not available to vote.")
             return redirect("polls:index")
 
 
@@ -80,6 +81,9 @@ class ResultsView(generic.DetailView):
     template_name = "polls/results.html"
 
     def get(self, request, *args, **kwargs):
+        """
+        Redirect to index page if questionID is not found.
+        """
         try:
             self.object = self.get_object()
             return super().get(request, *args, **kwargs)
@@ -89,7 +93,9 @@ class ResultsView(generic.DetailView):
 
 @login_required
 def vote(request, question_id):
-    """Process of voting"""
+    """
+    Process of voting.
+    """
     question = get_object_or_404(Question, pk=question_id)
     try:
         selected_choice = question.choice_set.get(pk=request.POST['choice'])
@@ -112,8 +118,3 @@ def vote(request, question_id):
             messages.success(request, f'Your vote for "{selected_choice.choice_text}" has been recorded.')
 
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
-
-
-def reverse_to_poll(self):
-    """redirect to homepage"""
-    return HttpResponseRedirect(reverse('polls:index'))
