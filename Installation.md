@@ -14,17 +14,27 @@
 
 4. Activate the virtual environment.
 
-`. env/bin/activate`
+```
+on Windows:
+.\env\scripts\activate
 
-5. Install all required packages. `pip install -r requirements.txt` Create .env file in ku-polls
+on macOS/linux:
+.env/bin/activate
+```
 
+5. Install all required packages.
+
+`pip install -r requirements.txt`
+
+6. Create .env file in ku-polls and copy this code to the file or copy from sample.env
 ```
 SECRET_KEY = 'django-insecure-rnug$7zncble0(+xdf%c-%%*y*dm=616&c)epl+m!*#a8p9@!0'
 DEBUG = True
-TIME_ZONE = UTC
+TIME_ZONE = Asia/Bangkok
+ALLOWED_HOSTS = localhost, 127.0.0.1
 ```
 
-6. Run this command to migrate the database.
+6. Migrate the database and import the poll data
 
 ```
 python manage.py migrate
