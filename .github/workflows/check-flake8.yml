@@ -1,0 +1,43 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: Check Flake8
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.11"
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install flake8
+        pip install flake8-docstrings
+        pip install -r requirements.txt
+    - name: Run flake8 on mysite/views.py
+      run: |
+        flake8 mysite/views.py --count --max-complexity=10 --max-line-length=127 --statistics
+    - name: Run flake8 on polls/admins.py
+      run: |
+        flake8 polls/admin.py --count --max-complexity=10 --max-line-length=127 --statistics
+    - name: Run flake8 on polls/models.py
+      run: |
+        flake8 polls/models.py --count --max-complexity=10 --max-line-length=127 --statistics
+    - name: Run flake8 on polls/views.py
+      run: |
+        flake8 polls/views.py --count --max-complexity=10 --max-line-length=127 --statistics
